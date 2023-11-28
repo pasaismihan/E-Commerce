@@ -7,7 +7,7 @@ export const products = [
       brand: "apple",
       category: "Phone",
       inStock: true,
-      image: "https://firebasestorage.googleapis.com/v0/b/ecommerce-shop-cc542.appspot.com/o/products%2F1688622161445-iphone14-white.png?alt=media&token=fe2065e5-fdfe-4a6f-baa6-380b5fad90b8",    
+      image: "/foto1.jpg",    
       reviews: [],
     },
     {
@@ -19,7 +19,7 @@ export const products = [
       brand: "logitech",
       category: "Accesories",
       inStock: true,
-      image: "https://firebasestorage.googleapis.com/v0/b/ecommerce-shop-cc542.appspot.com/o/products%2F1688622161445-iphone14-white.png?alt=media&token=fe2065e5-fdfe-4a6f-baa6-380b5fad90b8",
+      image: "/foto2.jpg",
       reviews: [
         {
           id: "64a65a6158b470c6e06959ee",
@@ -72,7 +72,7 @@ export const products = [
       brand: "Apple",
       category: "Phone",
       inStock: true,
-      image: "https://firebasestorage.googleapis.com/v0/b/ecommerce-shop-cc542.appspot.com/o/products%2F1688622161445-iphone14-white.png?alt=media&token=fe2065e5-fdfe-4a6f-baa6-380b5fad90b8",
+      image: "/foto3.jpg",
       reviews: [
         {
           id: "6499b4887402b0efd394d8f3",
@@ -126,7 +126,7 @@ export const products = [
       brand: "logitech",
       category: "Accesories",
       inStock: true,
-      image: "https://firebasestorage.googleapis.com/v0/b/ecommerce-shop-cc542.appspot.com/o/products%2F1688622161445-iphone14-white.png?alt=media&token=fe2065e5-fdfe-4a6f-baa6-380b5fad90b8",
+      image: "/foto4.jpg",
       reviews: [],
     },
     {
@@ -138,7 +138,7 @@ export const products = [
       brand: "Nerunsa",
       category: "Watch",
       inStock: true,
-      image: "https://firebasestorage.googleapis.com/v0/b/ecommerce-shop-cc542.appspot.com/o/products%2F1688622161445-iphone14-white.png?alt=media&token=fe2065e5-fdfe-4a6f-baa6-380b5fad90b8",
+      image: "/foto5.jpg",
       reviews: [],
     },
   ];
