@@ -6,6 +6,9 @@ import { Rating } from "@mui/material";
 import Counter from "../general/Counter"
 import { useState } from "react"
 import Button from "../general/Button";
+import Comment from "./Comment";
+import Heading from "../general/Heading";
+import UseCart from "@/hooks/useCart";
 
 export type CardProductProps = {
   id: string
@@ -18,6 +21,8 @@ export type CardProductProps = {
 }
 
 const DetailClient = ({ product }: { product: any }) => {
+
+  const {productCartQty} = UseCart(); 
 
   const [cardProduct, setCardProduct] = useState<CardProductProps>({
     id: product.id,
@@ -43,11 +48,11 @@ const DetailClient = ({ product }: { product: any }) => {
   return (
     <div className="my-10">
       <PageContainer>
-        <div className="block md:flex gap-14 justify-center">
-          <div className="relative h-[400px] w-[400px]">
+        <div className="block md:flex gap-14 justify-center mb-10">
+          <div className="relative h-[300px] md:h-[400px] w-[300px] md:w-[400px] mb-3 md:mb-0">
             <Image src={product?.image} fill alt="" />
           </div>
-          <div className="w-2/3 space-y-3">
+          <div className="w-full md:w-2/3 space-y-3">
             <div className="text-xl md:text-2xl">{product?.name}</div>
             <Rating name="read-only" value={productRating} readOnly />
             <div className="text-slate-500">{product?.description}</div>
@@ -62,6 +67,12 @@ const DetailClient = ({ product }: { product: any }) => {
             <Button text="Sepete Ekle" small onClick={() => { }} />
           </div>
 
+        </div>
+        <Heading text="Yorumlar" />
+        <div>
+          {product?.reviews?.map((prd: any) => (
+            <Comment key={prd.id} prd={prd} />
+          ))}
         </div>
       </PageContainer>
     </div>
