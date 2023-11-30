@@ -2,8 +2,10 @@
 
 import Image from "next/image"
 import PageContainer from "../containers/PageContainer"
+import { Rating } from "@mui/material";
 import Counter from "../general/Counter"
 import { useState } from "react"
+import Button from "../general/Button";
 
 export type CardProductProps = {
   id: string
@@ -28,14 +30,15 @@ const DetailClient = ({ product }: { product: any }) => {
   });
 
   const increaseFunc = () => {
-    if(cardProduct.quantity == 10) return 
+    if (cardProduct.quantity == 10) return
     setCardProduct(prev => ({ ...prev, quantity: prev.quantity + 1 }))
   }
 
   const decreaseFunc = () => {
-    if(cardProduct.quantity == 1) return 
+    if (cardProduct.quantity == 1) return
     setCardProduct(prev => ({ ...prev, quantity: prev.quantity - 1 }))
   }
+  let productRating = product?.reviews?.reduce((acc: number, item: any) => acc + item.rating, 0) / product?.reviews?.length
 
   return (
     <div className="my-10">
@@ -46,6 +49,7 @@ const DetailClient = ({ product }: { product: any }) => {
           </div>
           <div className="w-2/3 space-y-3">
             <div className="text-xl md:text-2xl">{product?.name}</div>
+            <Rating name="read-only" value={productRating} readOnly />
             <div className="text-slate-500">{product?.description}</div>
             <div className="flex items-center gap-2">
               <div>STOK DURUMU:</div>
@@ -54,6 +58,8 @@ const DetailClient = ({ product }: { product: any }) => {
               }
             </div>
             <Counter cardProduct={cardProduct} increaseFunc={increaseFunc} decreaseFunc={decreaseFunc} />
+            <div className="font-semibold text-orange-500 text-xl md:text-2xl">{product.price}$</div>
+            <Button text="Sepete Ekle" small onClick={() => { }} />
           </div>
 
         </div>
