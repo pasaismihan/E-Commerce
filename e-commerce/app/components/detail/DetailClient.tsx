@@ -8,7 +8,7 @@ import { useState } from "react"
 import Button from "../general/Button";
 import Comment from "./Comment";
 import Heading from "../general/Heading";
-import UseCart from "@/hooks/useCart";
+import UseCart from "@/hooks/UseCart";
 
 export type CardProductProps = {
   id: string
@@ -22,7 +22,7 @@ export type CardProductProps = {
 
 const DetailClient = ({ product }: { product: any }) => {
 
-  const {productCartQty} = UseCart(); 
+  const { productCartQty, addToBasket, cartPrdcts } = UseCart();
 
   const [cardProduct, setCardProduct] = useState<CardProductProps>({
     id: product.id,
@@ -33,6 +33,8 @@ const DetailClient = ({ product }: { product: any }) => {
     image: product.image,
     inStock: product.inStock
   });
+
+  console.log(cartPrdcts, "cartprdcts")
 
   const increaseFunc = () => {
     if (cardProduct.quantity == 10) return
@@ -64,7 +66,7 @@ const DetailClient = ({ product }: { product: any }) => {
             </div>
             <Counter cardProduct={cardProduct} increaseFunc={increaseFunc} decreaseFunc={decreaseFunc} />
             <div className="font-semibold text-orange-500 text-xl md:text-2xl">{product.price}$</div>
-            <Button text="Sepete Ekle" small onClick={() => { }} />
+            <Button text="Sepete Ekle" small onClick={() => addToBasket(cardProduct)} />
           </div>
 
         </div>
