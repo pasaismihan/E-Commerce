@@ -4,12 +4,14 @@ import UseCart from "@/hooks/UseCart"
 import PageContainer from "../containers/PageContainer"
 import Image from "next/image";
 import Button from "../general/Button";
+import Counter from "../general/Counter";
 
 const CartClient = () => {
-    const { cartPrdcts } = UseCart();
+    const { cartPrdcts, removeFromCart, removeCart } = UseCart();
     if (!cartPrdcts || cartPrdcts.length == 0) {
         return <div>Sepetinizde Urun Bulunmamaktadir.</div>
     }
+    const totalPrice = cartPrdcts.reduce((acc, a): any => { return acc + a.price }, 0)
     return (
         <div className="my-3 md:my-10">
             <PageContainer>
@@ -28,14 +30,20 @@ const CartClient = () => {
                                     <Image src={cart.image} width={60} height={60} alt="" />
                                 </div>
                                 <div className="w-1/5">{cart.name}</div>
-                                <div className="w-1/5">2</div>
+                                <div className="w-1/5">
+                                    <Counter cardProduct={cart} increaseFunc={()=>{}} decreaseFunc={()=>{}}/>
+                                </div>
                                 <div className="w-1/5 text-orange-600 text-lg font-semibold">{cart.price} $</div>
                                 <div className="w-1/5">
-                                    <Button text="Ürünü Sil" small  onClick={() => { }} />
+                                    <Button text="Ürünü Sil" small onClick={() => removeFromCart(cart)} />
                                 </div>
                             </div>
                         ))
                     }
+                </div>
+                <div className="flex justify-between items-center my-5 py-5 border-t">
+                    <button onClick={() => removeCart()} className="w-1/5 underline text-md font-semibold">Sepeti Sil</button>
+                    <div className="text-lg md:text-2xl">{totalPrice} $</div>
                 </div>
             </PageContainer>
         </div>
