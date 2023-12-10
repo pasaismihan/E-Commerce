@@ -30,7 +30,7 @@ export const products = [
           createdDate: "2023-07-06T06:08:33.067Z",
           user: {
             id: "6475af156bad4917456e6e1e",
-            name: "Berkant Kaya",
+            name: "Paşa ismihan",
             email: "example@gmail.com",
             emailVerified: null,
             image:
@@ -42,7 +42,7 @@ export const products = [
           },
         },
         {
-          id: "64a65a6158b470c6e06959ee",
+          id: "64a65a6158b470c6e06958ee",
           userId: "6475af156bad4917456e6e1e",
           productId: "64a4ebe300900d44bb50628a",
           rating: 5,
@@ -50,7 +50,7 @@ export const products = [
           createdDate: "2023-07-06T06:08:33.067Z",
           user: {
             id: "6475af156bad4917456e6e1e",
-            name: "Berkant Kaya",
+            name: "Paşa ismihan",
             email: "example@gmail.com",
             emailVerified: null,
             image:
@@ -84,7 +84,7 @@ export const products = [
           createdDate: "2023-06-26T15:53:44.483Z",
           user: {
             id: "6499b184b0e9a8c8709821d3",
-            name: "Berkant Kaya",
+            name: "Paşa ismihan",
             email: "example1@gmail.com",
             emailVerified: null,
             image:
@@ -104,7 +104,7 @@ export const products = [
           createdDate: "2023-06-26T14:30:40.998Z",
           user: {
             id: "6475af156bad4917456e6e1e",
-            name: "Berkant Kaya",
+            name: "Paşa ismihan",
             email: "example@gmail.com",
             emailVerified: null,
             image:
