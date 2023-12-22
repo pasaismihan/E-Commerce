@@ -7,11 +7,11 @@ import Button from "../general/Button";
 import Counter from "../general/Counter";
 
 const CartClient = () => {
-    const { cartPrdcts, removeFromCart, removeCart } = UseCart();
+    const { cartPrdcts, removeFromCart, removeCart, addToBasketIncrease, addToBasketDecrease } = UseCart();
     if (!cartPrdcts || cartPrdcts.length == 0) {
         return <div>Sepetinizde Urun Bulunmamaktadir.</div>
     }
-    const totalPrice = cartPrdcts.reduce((acc, a): any => { return acc + a.price }, 0)
+    const totalPrice = cartPrdcts.reduce((acc, a): any => { return acc + a.price * a.quantity }, 0)
     return (
         <div className="my-3 md:my-10">
             <PageContainer>
@@ -31,7 +31,7 @@ const CartClient = () => {
                                 </div>
                                 <div className="w-1/5">{cart.name}</div>
                                 <div className="w-1/5">
-                                    <Counter cardProduct={cart} increaseFunc={()=>{}} decreaseFunc={()=>{}}/>
+                                    <Counter cardProduct={cart} increaseFunc={() => addToBasketIncrease(cart)} decreaseFunc={() => addToBasketDecrease(cart)} />
                                 </div>
                                 <div className="w-1/5 text-orange-600 text-lg font-semibold">{cart.price} $</div>
                                 <div className="w-1/5">
