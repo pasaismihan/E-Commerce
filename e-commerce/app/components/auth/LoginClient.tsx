@@ -6,8 +6,12 @@ import Heading from "../general/Heading";
 import Input from "../general/Input";
 import { FaGoogle } from "react-icons/fa";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 const LoginClient = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -15,7 +19,19 @@ const LoginClient = () => {
     formState: { errors },
   } = useForm<FieldValues>();
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+    signIn("credentials", {
+      ...data,
+      redirect: false,
+    }).then((callback) => {
+      if (callback?.ok) {
+        router.push("/cart");
+        router.refresh();
+        toast.success("Login islemi basarili");
+      }
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
+    });
   };
   return (
     <AuthContainer>

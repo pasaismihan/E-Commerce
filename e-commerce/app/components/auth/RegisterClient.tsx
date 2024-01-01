@@ -6,8 +6,13 @@ import Heading from "../general/Heading";
 import Input from "../general/Input";
 import { FaGoogle } from "react-icons/fa";
 import Link from "next/link";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const RegisterClient = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -15,7 +20,23 @@ const RegisterClient = () => {
     formState: { errors },
   } = useForm<FieldValues>();
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+    axios.post("/api/register", data).then(() => {
+      toast.success("Kullanici Olusturuldu");
+      signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      }).then((callback) => {
+        if (callback?.ok) {
+          router.push("/cart");
+          router.refresh();
+          toast.success("register islemi basarili");
+        }
+        if (callback?.error) {
+          toast.error(callback.error);
+        }
+      });
+    });
   };
   return (
     <AuthContainer>
