@@ -9,8 +9,14 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import { User } from "@prisma/client";
+import { useEffect } from "react";
 
-const LoginClient = () => {
+type LoginClientProps = {
+  currentUser: User | null | undefined;
+};
+
+const LoginClient: React.FC<LoginClientProps> = ({ currentUser }) => {
   const router = useRouter();
   const {
     register,
@@ -33,6 +39,15 @@ const LoginClient = () => {
       }
     });
   };
+
+  //! Eger nextjs projesinde use client kullanmiyorsak useEffect hata verecektir cunku server side icin gecerli degil clientin render edilmesiyle ilgili
+  useEffect(() => {
+    if (currentUser) {
+      router.push("/cart");
+      router.refresh();
+    }
+  }, []);
+
   return (
     <AuthContainer>
       <div className="w-full md:w-[500px] p-3 shadow-lg rounded-md">
@@ -66,7 +81,7 @@ const LoginClient = () => {
           text="Google Ile Giris Yap"
           icon={FaGoogle}
           outline
-          onClick={() => {}}
+          onClick={() => signIn("google")}
         />
       </div>
     </AuthContainer>

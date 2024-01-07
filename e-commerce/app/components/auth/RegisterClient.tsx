@@ -10,8 +10,14 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { User } from "@prisma/client";
+import { useEffect } from "react";
 
-const RegisterClient = () => {
+type RegisterClientProps = {
+  currentUser: User | null | undefined;
+};
+
+const RegisterClient: React.FC<RegisterClientProps> = ({ currentUser }) => {
   const router = useRouter();
   const {
     register,
@@ -38,6 +44,14 @@ const RegisterClient = () => {
       });
     });
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      router.push("/cart");
+      router.refresh();
+    }
+  }, []);
+
   return (
     <AuthContainer>
       <div className="w-full md:w-[500px] p-3 shadow-lg rounded-md">
@@ -78,7 +92,7 @@ const RegisterClient = () => {
           text="Google ile Uye Ol"
           icon={FaGoogle}
           outline
-          onClick={() => {}}
+          onClick={() => signIn("google")}
         />
       </div>
     </AuthContainer>

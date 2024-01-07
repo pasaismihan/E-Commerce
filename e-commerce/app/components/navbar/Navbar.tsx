@@ -1,9 +1,9 @@
-import { getCurrentUser } from "@/app/actions/getCurrentUser"
-import CardCount from "./CardCount"
-import HamburgerMenu from "./HamburgerMenu"
-import Logo from "./Logo"
-import Search from "./Search"
-import User from "./User"
+import { getCurrentUser } from "@/app/actions/getCurrentUser";
+import CardCount from "./CardCount";
+import HamburgerMenu from "./HamburgerMenu";
+import Logo from "./Logo";
+import Search from "./Search";
+import User from "./User";
 
 const Navbar = async () => {
   const currentUser = await getCurrentUser();
@@ -12,10 +12,10 @@ const Navbar = async () => {
       <Logo />
       <Search />
       <CardCount />
-      <User currentUser = {currentUser}/>
+      <User currentUser={currentUser} />
       <HamburgerMenu />
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
