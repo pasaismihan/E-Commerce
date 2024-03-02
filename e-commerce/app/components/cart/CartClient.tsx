@@ -5,6 +5,7 @@ import PageContainer from "../containers/PageContainer"
 import Image from "next/image";
 import Button from "../general/Button";
 import Counter from "../general/Counter";
+import Link from 'next/link';
 
 const CartClient = () => {
     const { cartPrdcts, removeFromCart, removeCart, addToBasketIncrease, addToBasketDecrease } = UseCart();

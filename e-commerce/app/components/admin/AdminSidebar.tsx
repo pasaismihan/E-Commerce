@@ -20,6 +20,11 @@ const AdminSidebar = () => {
       url: "/admin/create",
     },
     {
+      name: "Ürünleri Yönet",
+      icon: IoMdCreate,
+      url: "/admin/manage",
+    },
+    {
       name: "Siparişlerim",
       icon: LiaFirstOrder,
       url: "/admin/order",

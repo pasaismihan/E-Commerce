@@ -15,6 +15,14 @@ import { FaMouse } from "react-icons/fa";
 import ChoiceInput from "../general/ChoiceInput";
 import Button from '../general/Button';
 import { useState } from "react";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import firebaseApp from "@/libs/firebase";
+import { toast } from 'react-hot-toast';
+import axios from "axios";
+import { useRouter } from 'next/navigation';
+
+
+
 
 const categoryList = [
     {
@@ -52,6 +60,8 @@ const categoryList = [
 const CreateForm = () => {
 
     const [img, setImg] = useState<File | null>(null);
+    const [uploadedImg, setUploadedImg] = useState<string | null>(null);
+    const router = useRouter();
 
     const {
         register,
@@ -70,8 +80,67 @@ const CreateForm = () => {
             inStock: false
         }
     });
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         console.log("data", data)
+        //! eger submit ettikten sonra resetlemek istersek react-hook-formun ozelligini kullanabiliriz
+
+        const handleChange = async () => {
+            toast.success('Yukleme islemi basarili')
+            try {
+                const storage = getStorage(firebaseApp);
+                const storageRef = ref(storage, 'images/shop.jpg');
+                const uploadTask = uploadBytesResumable(storageRef, img);
+
+
+                await new Promise<void>((resolve, reject) => {
+                    uploadTask.on('state_changed',
+                        (snapshot) => {
+                            // Observe state change events such as progress, pause, and resume
+                            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                            console.log('Upload is ' + progress + '% done');
+                            switch (snapshot.state) {
+                                case 'paused':
+                                    console.log('Upload is paused');
+                                    break;
+                                case 'running':
+                                    console.log('Upload is running');
+                                    break;
+                            }
+                        },
+                        (error) => {
+                            reject(error)
+                        },
+                        () => {
+                            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                                console.log('File available at', downloadURL);
+                                setUploadedImg(downloadURL);
+                                resolve();
+                            });
+                        }
+                    );
+
+                })
+
+
+
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        await handleChange();
+        let newData = { ...data, image: uploadedImg }
+
+        axios.post('/api/product', newData)
+            .then(() => {
+                toast.success("Urun Ekleme Basarili");
+                router.refresh();
+            }).catch((error) => {
+                console.log(error)
+            })
+
+        console.log(newData, "newdataaaa")
     }
 
     const category = watch('category') // category icerisindeki degisiklikleri izleyebilmemiz icin watch kullandik 
@@ -135,6 +204,7 @@ const CreateForm = () => {
                     <ChoiceInput key={cat.name} text={cat.name} icon={cat.icon} onClick={(category) => setCostumValue("category", category)} selected={category == cat.name} />
                 ))}
             </div>
+            <input type="file" className="my-2" onChange={onChangeFunc} />
             <Button text="Ürün Oluştur" onClick={handleSubmit(onSubmit)} />
         </div>
     );
